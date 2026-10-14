@@ -85,6 +85,7 @@ app.include_router(dashboard.router)
 app.include_router(customize.router)
 
 
-@app.get("/health")
+# HEAD too: uptime monitors (e.g. UptimeRobot) check with HEAD requests.
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health() -> dict[str, str]:
     return {"status": "ok"}

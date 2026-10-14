@@ -178,3 +178,8 @@ def test_login_rate_limited(client):
         for _ in range(11)
     ]
     assert codes[-1] == 429
+
+
+def test_health_accepts_get_and_head(client):
+    assert client.get("/health").json() == {"status": "ok"}
+    assert client.head("/health").status_code == 200  # uptime monitors use HEAD
